@@ -7,8 +7,8 @@ public class Application extends JFrame{
     }
 
     public void initUI(){
-        int bWidth = 600;
-        int bHeight = 400;
+        int bWidth = 800;
+        int bHeight = 600;
         add(new Board());
         setSize(bWidth, bHeight);
 
@@ -16,7 +16,7 @@ public class Application extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
     }
-    public static void main(){
+    public static void main(String[] args){
         EventQueue.invokeLater(() -> {
             Application ex = new Application();
             ex.setVisible(true);

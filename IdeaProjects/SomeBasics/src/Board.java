@@ -28,16 +28,13 @@ public class Board extends JPanel{
         double width = size.getWidth();
         double height = size.getHeight();
 
-        Rectangle2D rect = new Rectangle2D.Double(0, 0, 200, 100);
+        g2d.setColor(new Color(77, 255, 245));
+        g2d.fillRect(0, toInt(height-height/3), toInt(width), toInt(height/3));
 
-        g2d.setStroke(new BasicStroke(2));
-        g2d.setColor(new Color(255,0,0));
-        AffineTransform at = AffineTransform.getTranslateInstance(width/2, height/2);
-        for(int deg = 0; deg< 10; deg++) {
-            at.rotate(Math.toRadians(50));
-            g2d.draw(at.createTransformedShape(e));
-        }
     }
-
+    public int toInt(Double db){
+        int newDb = (int) Math.round(db);
+        return newDb;
+    }
 }
 
