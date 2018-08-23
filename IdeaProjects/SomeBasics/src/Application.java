@@ -1,4 +1,4 @@
-import javax.swing.JFrame;
+import javax.swing.*;
 import java.awt.EventQueue;
 
 public class Application extends JFrame{
@@ -11,7 +11,6 @@ public class Application extends JFrame{
         int bHeight = 600;
         add(new Board());
         setSize(bWidth, bHeight);
-
         setTitle("Something small");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -20,6 +19,7 @@ public class Application extends JFrame{
         EventQueue.invokeLater(() -> {
             Application ex = new Application();
             ex.setVisible(true);
+
         });
     }
 }
