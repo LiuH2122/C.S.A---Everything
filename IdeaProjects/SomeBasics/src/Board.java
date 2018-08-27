@@ -10,30 +10,25 @@ import java.awt.geom.*;
 import java.util.Random;
 
 public class Board extends JPanel{
-    Dimension size = getSize();
-    double screenW = size.getWidth();
-    double screenH = size.getHeight();
-    Color gray  = new Color(225, 223, 230);
-    gameComponent[] allGameComponents = new gameComponent[ 2 ];
-
-
+    public static gameComponent[] allGameComponents = new gameComponent[ 2 ];
     @Override
-    public void paintComponent(Graphics g){
+    public void paintComponent(Graphics g) {
 
         super.paintComponent(g);
 
-        gameComponent base = new gameComponent(0, (screenH/3)*2, screenW, screenH/3, gray);
-        gameComponent platform = new gameComponent(50, 100, screenW/3, 20, gray);
-        allGameComponents[0] = base;
-        allGameComponents[0] = platform;
+        Dimension size = getSize();
+        double screenW = size.getWidth();
+        double screenH = size.getHeight();
+        Color gray = new Color(225, 223, 230);
 
-        for(int i =0;i<allGameComponents.length;i++){
+        gameComponent base = new gameComponent(0, (screenH / 3) * 2, screenW, screenH / 3, gray);
+        gameComponent platform = new gameComponent(50, 100, screenW / 3, 20, gray);
+
+        allGameComponents[0] = base;
+        allGameComponents[1] = platform;
+        for (int i = 0; i < allGameComponents.length; i++) {
             allGameComponents[i].draw(g);
         }
-
-
-
-
 
 
     }
