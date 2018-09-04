@@ -27,6 +27,8 @@ public class Board extends JPanel{
         allGameComponents[0] = base;
         allGameComponents[1] = platform;
         for (int i = 0; i < allGameComponents.length; i++) {
+            base.x+=1;
+
             allGameComponents[i].draw(g);
         }
 
@@ -57,11 +59,14 @@ public class Board extends JPanel{
             rh.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
             g2d.setRenderingHints(rh);
 
-
-            Rectangle2D rect = new Rectangle2D.Double(this.x, this.y, this.width, this.height);
+            Rectangle2D rect = new Rectangle2D.Double(this.x+=1, this.y+=1, this.width, this.height);
             g2d.setPaint(this.color);
             g2d.fill(rect);
         }
+        public void update(){
+
+        }
+
 
     }
     public int toInt(Double db){
