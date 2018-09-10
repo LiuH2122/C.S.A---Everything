@@ -10,6 +10,7 @@ import java.awt.geom.*;
 import java.util.Random;
 
 public class Board extends JPanel{
+    public static int exvar = 0;
     public static gameComponent[] allGameComponents = new gameComponent[ 2 ];
     @Override
     public void paintComponent(Graphics g) {
@@ -27,12 +28,9 @@ public class Board extends JPanel{
         allGameComponents[0] = base;
         allGameComponents[1] = platform;
         for (int i = 0; i < allGameComponents.length; i++) {
-            base.x+=1;
-
+            allGameComponents[i].update();
             allGameComponents[i].draw(g);
         }
-
-
     }
 
 
@@ -44,12 +42,14 @@ public class Board extends JPanel{
         public double speedX;
         public double speedY;
         public Color color;
+
         gameComponent(double x, double y, double w, double h, Color color){
             this.x = x;
             this.width = w;
             this.y = y;
             this.height = h;
             this.color = color;
+            this.speedX = 1;
         }
 
         public void draw(Graphics g){
@@ -58,16 +58,14 @@ public class Board extends JPanel{
             RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             rh.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
             g2d.setRenderingHints(rh);
-
-            Rectangle2D rect = new Rectangle2D.Double(this.x+=1, this.y+=1, this.width, this.height);
+            Rectangle2D rect = new Rectangle2D.Double(exvar, this.y, this.width, this.height);
             g2d.setPaint(this.color);
             g2d.fill(rect);
+
         }
         public void update(){
-
+            exvar+=speedX;
         }
-
-
     }
     public int toInt(Double db){
         int newDb = (int) Math.round(db);
@@ -75,6 +73,7 @@ public class Board extends JPanel{
     }
 
     public void updateBoard(){
+        repaint();
     }
 
 }

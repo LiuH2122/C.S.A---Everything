@@ -3,13 +3,15 @@ import java.awt.*;
 import java.lang.*;
 
 public class Application extends JFrame{
-    public Board gameBoard = new Board();
-
+    public Board gboard;
     public Application(){
-        initUI();
+
+        this.gboard = new Board();
+        initUI(gboard);
+
     }
 
-    public void initUI(){
+    public void initUI(Board bo){
 
         int bWidth = 800;
         int bHeight = 600;
@@ -17,17 +19,14 @@ public class Application extends JFrame{
         setTitle("Something small");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        add(gameBoard);
+        add(bo);
     }
-    public void update() {
-        this.repaint();
 
-    }
     public static void main(String[] args) throws InterruptedException{
-            Application ex = new Application();
+        Application ex = new Application();
             ex.setVisible(true);
             while(true) {
-                ex.update();
+                ex.gboard.updateBoard();
                 Thread.sleep(20);
             }
     }
