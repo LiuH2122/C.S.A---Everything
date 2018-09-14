@@ -25,6 +25,7 @@ public class Application extends JFrame{
     public static void main(String[] args) throws InterruptedException{
         Application ex = new Application();
             ex.setVisible(true);
+            ex.gboard.init();
             while(true) {
                 ex.gboard.updateBoard();
                 Thread.sleep(20);
