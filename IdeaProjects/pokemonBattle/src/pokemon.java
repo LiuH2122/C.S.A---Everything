@@ -2,11 +2,11 @@ import java.util.Random;
 
 public class pokemon {
     public int hp, atk, def, spatk, spdef, spd, level, base;
-    public String name;
+    public String name, type;
     public double stab;
     Random rand = new Random();
 
-    pokemon(int hp, int atk, int def, int spatk, int spdef, int spd, int level, double stab, int base, String name){
+    pokemon(int hp, int atk, int def, int spatk, int spdef, int spd, int level, double stab, int base, String name, String type){
         this.level = level;
         this.hp = hp;
         this.atk = atk;
@@ -17,10 +17,9 @@ public class pokemon {
         this.stab = stab;
         this.base = base;
         this.name = name;
+        this.type = type;
 
     }
-
-
     public int damage(pokemon otherPokemon){
         double randMultiplier = 0.15 * rand.nextDouble() + 0.85;
         double dmg = (((2*this.level+10)/250) + (this.atk/this.def)*this.base+2)*this.stab*randMultiplier;
