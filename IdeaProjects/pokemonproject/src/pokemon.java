@@ -29,6 +29,7 @@ public class pokemon {
     }
 
     public void statsTable(){
+        System.out.println("------POKEMON STATS------");
         System.out.println("Name     " + this.name);
         System.out.println("Level    " + this.level);
         System.out.println("Type     " + this.type);
