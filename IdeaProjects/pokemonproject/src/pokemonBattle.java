@@ -12,6 +12,7 @@ public class pokemonBattle {
         int hp, atk, def, spatk, spdef, spd, level, stab, base, acc, numofMoves;
         String name, type, func;
         String choice;
+        int funcC;
         System.out.println("Create pokemon? If you select no, a random pokemon will be assigned to you.(y/n)");
         choice = reader.next();
         if(choice == "y"){
@@ -45,8 +46,18 @@ public class pokemonBattle {
             if (choice == "y") {
                 System.out.println("Name: ");
                 name = reader.next();
-                System.out.println("Function(attack/heal/raise stat");
-                func = reader.next();
+                System.out.println("Function(1. attack/2. heal/3. raise stat/4. decrease stat)(Enter 1/2/3/4)");
+                funcC = reader.nextInt();
+                switch(funcC){
+                  case 1:
+                    func = "attack";
+                  case 2:
+                    func = "heal";
+                  case 3:
+                    func = "raise stat";
+                  case 4:
+                    func = "decrease stat"
+                }
                 System.out.println("Base power");
                 base = reader.nextInt();
                 System.out.println("Type");
@@ -83,7 +94,7 @@ public class pokemonBattle {
                     System.out.println(m + ". " + yrmv[m].name);
                 }
                 c = reader.nextInt();
-
+                c = c-1
                 if(yrmv[c].type == yourPokemon.type){
                     yourPokemon.stab = 1.5;
                 }
@@ -91,6 +102,7 @@ public class pokemonBattle {
                     yourPokemon.stab = 1;
                 }
                 System.out.println(yourPokemon.name + "used " + yrmv[0].name + "!");
+                if()
                 Math.floor(Math.random()+yrmv[c].accuracy);
                 System.out.println("It did " + yourPokemon.damage(theirPokemon) + " damage. " + theirPokemon.name + " is now at " + theirPokemon.hp + "hp");
 
