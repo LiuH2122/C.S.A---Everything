@@ -1,5 +1,4 @@
 import java.util.Random;
-
 public class pokemon {
     public int hp, atk, def, spatk, spdef, spd, level, base;
     public String name, type;
