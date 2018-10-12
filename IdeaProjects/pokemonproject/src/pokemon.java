@@ -1,5 +1,6 @@
+import java.io.Serializable;
 import java.util.Random;
-public class pokemon {
+public class pokemon implements Serializable{
     public int hp, atk, def, spatk, spdef, spd, level, base;
     public String name, type;
     public double stab;
@@ -19,9 +20,9 @@ public class pokemon {
         this.type = type;
 
     }
-    public int damage(pokemon otherPokemon){
+    public int damage(pokemon otherPokemon, int attackpower, int defpower){
         double randMultiplier = 0.15 * rand.nextDouble() + 0.85;
-        double dmg = (((2*this.level+10)/250) + (this.atk/this.def)*this.base+2)*this.stab*randMultiplier;
+        double dmg = (((2*this.level+10)/250) + (attackpower/defpower)*this.base+2)*this.stab*randMultiplier;
         int newdmg = (int)dmg;
         otherPokemon.hp -= newdmg;
         return newdmg;
