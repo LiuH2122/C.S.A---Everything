@@ -21,13 +21,21 @@ public class pokemon implements Serializable{
 
     }
     public int damage(pokemon otherPokemon, int attackpower, int defpower){
-        double randMultiplier = 0.15 * rand.nextDouble() + 0.85;
-        double dmg = (((2*this.level+10)/250) + (attackpower/defpower)*this.base+2)*this.stab*randMultiplier;
+        double randMultiplier = (0.15 * rand.nextDouble()) + 0.85;
+        double dmg = (((2*this.level+10)/250) + ((double)attackpower/defpower)*this.base+2)*this.stab*randMultiplier;
         int newdmg = (int)dmg;
         otherPokemon.hp -= newdmg;
         return newdmg;
     }
+    public void increaseLevel(int level){
+        this.hp += (int)((this.hp/50.0)* level);
+        this.atk += (int)((this.atk/50.0)* level);
+        this.def += (int)((this.def/50.0)* level);
+        this.spatk += (int)((this.spatk/50.0)* level);
+        this.spdef += (int)((this.spdef/50.0)* level);
+        this.spd += (int)((this.spd/50.0)* level);
 
+    }
     public void statsTable(){
         System.out.println("------POKEMON STATS------");
         System.out.println("Name     " + this.name);
