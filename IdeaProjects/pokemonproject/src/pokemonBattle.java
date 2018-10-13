@@ -9,31 +9,32 @@ import java.io.Serializable;
 
 
 public class pokemonBattle {
-
-
-
-    public static void main(String args[]) {
-        moves[] movePool = new moves[100];
-        moves Psychic = new moves("Psychic", "attack", "Psychic", 90, 100);
-        try{
-            FileOutputStream fout = new FileOutputStream("moves.ser");
-            ObjectOutputStream oos = new ObjectOutputStream(fout);
-            oos.writeObject(Psychic);
-        } catch (IOException i) {
-            i.printStackTrace();
-        }
+        public static void main(String args[]) {
+        moves[] movePool = new moves[415];
+        ohdear od = new ohdear();
+        od.setMovePool(movePool);
+        // try{
+        //     FileOutputStream fout = new FileOutputStream("moves.ser");
+        //     ObjectOutputStream oos = new ObjectOutputStream(fout);
+        //     oos.writeObject(Psychic);
+        // } catch (IOException i) {
+        //     i.printStackTrace();
+        // }
         moves[] yourMoves = new moves[4];
         moves[] thrMoves = new moves[4];
-        pokemon Alakazam = new pokemon(96, 52, 51, 121, 81, 107, 40, 1.5, 10, "Alakazam", "Psychic");
-        Scanner reader = new Scanner(System.in);
-        int hp, atk, def, spatk, spdef, spd, level, stab, base, acc, numofMoves;
-        String name, type, func, cate = "";
-        String choice;
-        int funcC;
 
+        pokemon Alakazam = new pokemon(96, 52, 51, 121, 81, 107, 40, 1.5, 10, "Alakazam", "Psychic");
+        for(int z= 0; z <4; z++){
+            thrMoves[z] = movePool[(int)Math.floor(Math.random()*movePool.length)];
+        }
+        Scanner reader = new Scanner(System.in);
+        int hp, atk, def, spatk, spdef, spd, level, base, acc, numofMoves, index;
+        String name, type, cate = "";
+        String choice;
+        boolean foundMove = false;
         System.out.println("Create pokemon? If you select no, a random pokemon will be assigned to you.(y/n)");
         choice = reader.next();
-        if (choice == "y") {
+        if ("y".equalsIgnoreCase(choice)) {
             System.out.println("Name: ");
             name = reader.next();
             System.out.println("Level: ");
@@ -55,53 +56,48 @@ public class pokemonBattle {
             pokemon usrPokemon = new pokemon(hp, atk, def, spatk, spdef, spd, level, 1.5, 0, name, type);
             usrPokemon.statsTable();
 
-        } else if (choice == "n") {
-            Alakazam.statsTable();
+        } else if ("n".equalsIgnoreCase(choice)) {
         }
 
         for (numofMoves = 0; numofMoves < 4; numofMoves++) {
-            System.out.println("Add pokemon move? If you select no, random moves will be assigned until you have 4 moves. Currently, you have "+ numofMoves +"(y/n)");
+            System.out.println("Add custom pokemon move? If you select no, a random move will be assigned. Currently, you have "+ numofMoves +" moves(y/n)");
             choice = reader.next();
-            if (choice == "y") {
+            if ("y".equalsIgnoreCase(choice)) {
                 System.out.println("Name: ");
                 name = reader.next();
-                System.out.println("Function(1. attack/2. heal/3. raise stat/4. decrease stat)(Enter 1/2/3/4)");
-                funcC = reader.nextInt();
-                switch (funcC) {
-                    case 1:
-                        func = "attack";
+                for(moves a : movePool){
+                    if((a.name).equalsIgnoreCase(name)){
+                        System.out.println("Move found in database!");
+                        yourMoves[numofMoves] = a;
+                        System.out.println(a.name + " added!");
+                        foundMove = true;
                         break;
-                    case 2:
-                        func = "heal";
-                        break;
-                    case 3:
-                        func = "raise stat";
-                        break;
-                    case 4:
-                        func = "decrease stat";
-                        break;
+                    }
                 }
-                System.out.println("Base power");
-                base = reader.nextInt();
-                System.out.println("Type");
-                type = reader.next();
-                System.out.println("Accuracy");
-                acc = reader.nextInt();
-                System.out.println("Category(special/physical)");
-                cate = reader.next();
+                if(foundMove == false){
+                    System.out.println("Base power");
+                    base = reader.nextInt();
+                    System.out.println("Type");
+                    type = reader.next();
+                    System.out.println("Accuracy");
+                    acc = reader.nextInt();
+                    System.out.println("Category(special/physical)");
+                    cate = reader.next();
 
-                moves customMove = new moves(type, func, name, base, acc, cate);
+                    moves customMove = new moves(type, name, base, acc, cate);
+                    System.out.println(customMove.name + " added!");
+                    yourMoves[numofMoves] = customMove;
+                }
 
-                yourMoves[numofMoves] = customMove;
-
-
-            } else if (choice == "n") {
+            } else if ("n".equalsIgnoreCase(choice)) {
+                index = (int)Math.floor(Math.random()*movePool.length);
+                System.out.println(index);
+                moves randomMove = movePool[index];
+                yourMoves[numofMoves] = randomMove;
+                System.out.println(randomMove.name + " added!");
             }
         }
     }
-
-
-
     public void initBattle(pokemon yourPokemon, pokemon theirPokemon, moves[] yrmv, moves[] thrmv) {
         Scanner reader = new Scanner(System.in);
         boolean yourTurn;
@@ -129,24 +125,21 @@ public class pokemonBattle {
                 yourPokemon.base = yrmv[c].base;
                 System.out.println(yourPokemon.name + "used " + yrmv[0].name + "!");
                 prb = Math.floor(Math.random() * 100 - yrmv[c].accuracy) + yrmv[c].accuracy;
+                
+                if (prb != 1) {
 
-                if (yrmv[c].func == "attack") {
-                    if (prb != 1) {
-
-                        curatk = yrmv[c].cate == "physical" ? yourPokemon.atk:yourPokemon.spatk;
-                        curdef = yrmv[c].cate == "physical" ? theirPokemon.def:theirPokemon.spdef;
-                        System.out.println("It did " + yourPokemon.damage(theirPokemon, curatk, curdef) + " damage. " + theirPokemon.name + " is now at " + theirPokemon.hp + "hp");
-                    } else {
-                        System.out.println("It missed!");
-                    }
+                    curatk = yrmv[c].cate == "physical" ? yourPokemon.atk:yourPokemon.spatk;
+                    curdef = yrmv[c].cate == "physical" ? theirPokemon.def:theirPokemon.spdef;
+                    System.out.println("It did " + yourPokemon.damage(theirPokemon, curatk, curdef) + " damage. " + theirPokemon.name + " is now at " + theirPokemon.hp + "hp");
                 } else {
-                    System.out.println("It did nothing because stat raises/decrease/health is not programmed yet");
+                    System.out.println("It missed!");
                 }
                 if (theirPokemon.hp <= 0) {
                     System.out.println(yourPokemon.name + " has won the battle! Congratulations!");
 
                 }
                 yourTurn = false;
+
             } else {
                 c = (int) Math.floor(Math.random() * 3.0);
                 if (thrmv[c].type == theirPokemon.type) {
@@ -158,17 +151,14 @@ public class pokemonBattle {
                 System.out.println(theirPokemon.name + "used " + yrmv[0].name + "!");
                 prb = Math.floor(Math.random() * 100 - thrmv[c].accuracy) + thrmv[c].accuracy;
 
-                if (thrmv[c].func == "attack") {
-                    if (prb != 1) {
-                        curatk = thrmv[c].cate == "physical" ? theirPokemon.atk:theirPokemon.spatk;
-                        curdef = thrmv[c].cate == "physical" ? yourPokemon.def:yourPokemon.spdef;
-                        System.out.println("It did " + theirPokemon.damage(yourPokemon, curatk, curdef) + " damage. " + yourPokemon.name + " is now at " + yourPokemon.hp + "hp");
-                    } else {
-                        System.out.println("It missed!");
-                    }
+                if (prb != 1) {
+                    curatk = thrmv[c].cate == "physical" ? theirPokemon.atk:theirPokemon.spatk;
+                    curdef = thrmv[c].cate == "physical" ? yourPokemon.def:yourPokemon.spdef;
+                    System.out.println("It did " + theirPokemon.damage(yourPokemon, curatk, curdef) + " damage. " + yourPokemon.name + " is now at " + yourPokemon.hp + "hp");
                 } else {
-                    System.out.println("It did nothing because stat raises/decrease/health is not programmed yet");
+                    System.out.println("It missed!");
                 }
+
                 if (yourPokemon.hp <= 0) {
                     System.out.println(theirPokemon.name + " has won the battle! You lost!");
 
